@@ -3,6 +3,7 @@ import User from "../models/users";
 import bcrypt from "bcrypt";
 import { _TRegister, _TLogin, _TExistUser, _TToken } from "types/types";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import { errorLogger, infoLogger } from "../helpers/logger";
 
 
 export const register = async(req: Request, res: Response) => {
@@ -18,13 +19,15 @@ export const register = async(req: Request, res: Response) => {
             email,
             password: hashPass
           });
+          infoLogger.info(`User registration triggered. profile: '${newUser}'`);
           await newUser.save();
           return res.status(201).json({status: 201, success: true, message: "User registered successfully."});
         } catch (error) {
+            errorLogger.error(`User registration error triggered. error: '${error}'`);
             return res.status(400).json({status: 400, success: false, message: error.username.message});
         }
     } catch (error) {
-        console.log(error);
+        errorLogger.error(`Server error triggered. error: '${error}'`);
         return res.status(500).json({status: 500, success: false, message: "Internal server error."});
     }
 }

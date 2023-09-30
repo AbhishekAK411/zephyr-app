@@ -16,7 +16,7 @@ export const checkRegister = async(req: Request, res: Response, next: NextFuncti
             emailValidator(email);
             infoLogger.info(`Validators triggered. username: '${username}', email: '${email}', password: '${password}'`);
         }catch(err){
-            errorLogger.error(`Error triggered. error: '${err.message}'`);
+            errorLogger.error(`Validators error triggered. error: '${err.message}'`);
             return res.status(404).json({status: 404, success: false, message: err.message});
         }
         next();
@@ -31,7 +31,7 @@ export const checkLogin = async(req: Request, res: Response, next: NextFunction)
         const {field, password}: _TLogin = req.body;
         if(!field) return res.status(404).json({status: 404, success: false, message: "Username or Email is required."});
         if(!password) return res.status(404).json({status: 404, success: false, message: "Password is required."});
-        
+
         const existUser: _TExistUser | null = await User.findOne({$or: [{username: field}, {email: field}]}).exec();
         if(!existUser) return res.status(404).json({status: 404, success: false, message: "Invalid credentials."}); 
         const bool = await bcrypt.compare(password, existUser.password);
