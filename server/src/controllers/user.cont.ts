@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import User from "models/users";
+import User from "../models/users";
 import bcrypt from "bcrypt";
 import {_TRegister, _TLogin, _TExistUser} from "types/types";
 import jwt from "jsonwebtoken";

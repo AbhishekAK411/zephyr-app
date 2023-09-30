@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import User from "models/users";
-import { emailValidator } from "utils/emailValidator";
-import { validator } from "utils/passwordValidator";
+import User from "../models/users";
+import { emailValidator } from "../utils/emailValidator";
+import { validator } from "../utils/passwordValidator";
 import bcrypt from "bcrypt";
 import { _TRegister, _TLogin, _TExistUser } from "types/types";
 
