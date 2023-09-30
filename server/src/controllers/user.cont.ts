@@ -10,20 +10,24 @@ export const register = async(req: Request, res: Response) => {
         const {username, email, password}: _TRegister = req.body;
 
         const oldUser: _TExistUser | null = await User.findOne({email}).exec();
-        if(!oldUser) return res.status(403).json({status: 403, success: false, message: "User is already registered."});
+        if(oldUser) return res.status(403).json({status: 403, success: false, message: "User is already registered."});
         try {
             const hashPass:string = await bcrypt.hash(password, 10);
+            console.log(hashPass);
           const newUser = new User({
             username,
             email,
             password: hashPass
           });
+          console.log(newUser);
           await newUser.save();
-          return res.status(201).json({status: 201, success: false, message: "User registered successfully."});
+          return res.status(201).json({status: 201, success: true, message: "User registered successfully."});
         } catch (error) {
+            console.log(error);
             return res.status(400).json({status: 400, success: false, message: error.username.message});
         }
     } catch (error) {
+        console.log(error);
         return res.status(500).json({status: 500, success: false, message: "Internal server error."});
     }
 }

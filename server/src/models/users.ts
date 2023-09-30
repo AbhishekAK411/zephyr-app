@@ -29,10 +29,6 @@ const userSchema = new Schema({
                 if(!/^[A-Za-z0-9]/.test(value)){
                     throw new Error("Username should have uppercase and lowercase characters.");
                 }
-                if(/[^!@#$%^&*]/.test(value)){
-                    throw new Error("Username should not have any special characters.");
-                }
-
             }
         }
     },
