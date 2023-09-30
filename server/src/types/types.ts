@@ -1,3 +1,5 @@
+import { Logger } from "winston";
+
 export type _TRegister = {
     username: string,
     email: string,
@@ -22,3 +24,6 @@ export type _TExistUser = {
 export type _TToken = {
     token: string
 }
+
+
+export type _TWinstonLogger = Logger;

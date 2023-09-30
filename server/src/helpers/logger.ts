@@ -1,3 +1,4 @@
+import { _TWinstonLogger } from "types/types";
 import {createLogger, transports, format} from "winston";
 import { Logger } from "winston";
 
@@ -7,4 +8,16 @@ const logFormat = format.combine(
         return `[${level}]:: ${message} : ${timestamp}`;
     })
 )
+
+
+export const infoLogger: _TWinstonLogger = createLogger({
+    level: 'info',
+    format: logFormat,
+    transports: [
+        new transports.Console(),
+        new transports.File({filename: '../logs/info.log'})
+    ]
+});
+
+
 
