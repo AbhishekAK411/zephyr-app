@@ -4,6 +4,7 @@ import { emailValidator } from "../utils/emailValidator";
 import { validator } from "../utils/passwordValidator";
 import bcrypt from "bcrypt";
 import { _TRegister, _TLogin, _TExistUser } from "types/types";
+import { errorLogger, infoLogger } from "../helpers/logger";
 
 export const checkRegister = async(req: Request, res: Response, next: NextFunction) => {
     try {
@@ -13,11 +14,14 @@ export const checkRegister = async(req: Request, res: Response, next: NextFuncti
         try{
             validator(password);
             emailValidator(email);
+            infoLogger.info(`Validators triggered. username: '${username}', email: '${email}', password: '${password}'`);
         }catch(err){
+            errorLogger.error(`Error triggered. error: '${err.message}'`);
             return res.status(404).json({status: 404, success: false, message: err.message});
         }
         next();
     } catch (error) {
+        errorLogger.info(`Server error triggered. error: '${error.message}'`)
         return res.status(500).json({status: 500, success: false, message: "Internal server error."});
     }
 }
@@ -27,7 +31,7 @@ export const checkLogin = async(req: Request, res: Response, next: NextFunction)
         const {field, password}: _TLogin = req.body;
         if(!field) return res.status(404).json({status: 404, success: false, message: "Username or Email is required."});
         if(!password) return res.status(404).json({status: 404, success: false, message: "Password is required."});
-
+        
         const existUser: _TExistUser | null = await User.findOne({$or: [{username: field}, {email: field}]}).exec();
         if(!existUser) return res.status(404).json({status: 404, success: false, message: "Invalid credentials."}); 
         const bool = await bcrypt.compare(password, existUser.password);
