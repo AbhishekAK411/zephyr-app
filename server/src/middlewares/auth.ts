@@ -3,26 +3,7 @@ import User from "models/users";
 import { emailValidator } from "utils/emailValidator";
 import { validator } from "utils/passwordValidator";
 import bcrypt from "bcrypt";
-
-type _TRegister = {
-    username: string,
-    email: string,
-    password: string,
-    confirmPassword: string
-}
-
-type _TLogin = {
-    field: string,
-    password: string
-}
-
-type _TExistUser = {
-    username: string,
-    email: string,
-    password: string,
-    role: string,
-    posts: Array<object>
-}
+import { _TRegister, _TLogin, _TExistUser } from "types/types";
 
 export const checkRegister = async(req: Request, res: Response, next: NextFunction) => {
     try {

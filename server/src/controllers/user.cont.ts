@@ -1,18 +1,15 @@
 import { Request, Response } from "express";
 import User from "models/users";
 import bcrypt from "bcrypt";
+import {_TRegister, _TLogin, _TExistUser} from "types/types";
+import jwt from "jsonwebtoken";
 
-type _TUserData = {
-    username: string,
-    email: string,
-    password: string
-}
 
 export const register = async(req: Request, res: Response) => {
     try {
-        const {username, email, password}: _TUserData = req.body;
+        const {username, email, password}: _TRegister = req.body;
 
-        const oldUser: object | null = await User.findOne({email}).exec();
+        const oldUser: _TExistUser | null = await User.findOne({email}).exec();
         if(!oldUser) return res.status(403).json({status: 403, success: false, message: "User is already registered."});
         try {
             const hashPass:string = await bcrypt.hash(password, 10);
