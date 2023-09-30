@@ -10,7 +10,6 @@ export type _TLogin = {
     password: string
 }
 
-
 export type _TExistUser = {
     _id: string
     username: string,
@@ -18,4 +17,8 @@ export type _TExistUser = {
     password: string,
     role: string,
     posts: Array<Object>
+}
+
+export type _TToken = {
+    token: string
 }

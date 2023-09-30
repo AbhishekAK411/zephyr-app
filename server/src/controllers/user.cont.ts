@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import User from "../models/users";
 import bcrypt from "bcrypt";
-import {_TRegister, _TLogin, _TExistUser} from "types/types";
-import jwt from "jsonwebtoken";
+import { _TRegister, _TLogin, _TExistUser, _TToken } from "types/types";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 
 export const register = async(req: Request, res: Response) => {
@@ -43,7 +43,13 @@ export const login = async(req: Request, res: Response) => {
 
 export const getCurrentUser = async(req: Request,res: Response) => {
     try {
-        
+        const {token}: _TToken = req.body;
+        const decodeToken = jwt.verify(token, process.env.JWT_SECRET) as JwtPayload;
+        const userId = decodeToken.id;
+        const user = await User.findOne(userId).select("-password").exec();
+        if(user){
+            return res.status(200).json({status: 200, success: true, data: user});
+        }
     } catch (error) {
         return res.status(500).json({status: 500, success: false, message: "Internal server error."});
     }
