@@ -30,7 +30,11 @@ export const register = async(req: Request, res: Response) => {
 
 export const login = async(req: Request, res: Response) => {
     try {
-        
+        const {field}: _TLogin = req.body;
+        const existUser: _TExistUser | null = await User.findOne({$or: [{username: field}, {password: field}]}).exec();
+        const userId: object = {id: existUser._id};
+        const token: string = jwt.sign(userId, process.env.JWT_SECRET);
+        return res.status(200).json({status: 200, success: true, message: "Logged in successfully.", token: token, user: existUser});
     } catch (error) {
         return res.status(500).json({status: 500, success: false, message: "Internal server error."});
     }
