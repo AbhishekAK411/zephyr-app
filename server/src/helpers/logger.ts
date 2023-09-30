@@ -19,5 +19,14 @@ export const infoLogger: _TWinstonLogger = createLogger({
     ]
 });
 
+export const warnLogger: _TWinstonLogger = createLogger({
+    level: 'warn',
+    format: logFormat,
+    transports: [
+        new transports.File({filename: '../logs/warn.log'})
+    ]
+});
+
+
 
 
