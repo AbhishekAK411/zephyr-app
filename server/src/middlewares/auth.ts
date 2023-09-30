@@ -25,3 +25,11 @@ export const checkRegister = async(req: Request, res: Response, next: NextFuncti
         return res.status(500).json({status: 500, success: false, message: "Internal server error."});
     }
 }
+
+export const checkLogin = async(req: Request, res: Response, next: NextFunction) => {
+    try {
+        
+    } catch (error) {
+        return res.status(500).json({status: 500, success: false, message: "Internal server error."});
+    }
+}

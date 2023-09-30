@@ -30,3 +30,11 @@ export const register = async(req: Request, res: Response) => {
         return res.status(500).json({status: 500, success: false, message: "Internal server error."});
     }
 }
+
+export const login = async(req: Request, res: Response) => {
+    try {
+        
+    } catch (error) {
+        return res.status(500).json({status: 500, success: false, message: "Internal server error."});
+    }
+}
