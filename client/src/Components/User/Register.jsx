@@ -1,7 +1,7 @@
 const Register = () => {
     return (
         <>
-
+            <section className=""></section>
         </>
     )
 }
