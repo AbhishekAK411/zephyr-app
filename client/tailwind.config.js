@@ -8,6 +8,15 @@ module.exports = withMT({
     extend: {
       boxShadow: {
         'mac': '0 5px 10px rbga(0,0,0,0.5)'
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+      },
+      animation: {
+        'fade-in': 'fadeIn 1s ease-in-out forwards'
       }
     },
   },

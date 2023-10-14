@@ -1,10 +1,15 @@
 import { IconButton, Button, Input } from "@material-tailwind/react";
 
-const Login = () => {
+const Login = ({ onLoginCloseToggle }) => {
     return (
         <>
-            <section className="w-[600px] h-[500px] flex items-center justify-center">
-                <section className="w-[95%] h-[95%] border border-gray-400 rounded-xl flex flex-col justify-evenly">
+            <section className={`animate-fade-in w-[600px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[500px] flex items-center justify-center`}>
+                <section className="absolute right-8 top-6">
+                    <IconButton onClick={onLoginCloseToggle} variant="text" className="rounded-full text-base">
+                        <i className="fa fa-times" aria-hidden="true"></i>
+                    </IconButton>
+                </section>
+                <section className="w-[95%] h-[95%] border rounded-xl flex flex-col justify-evenly shadow-2xl">
                     <section className="w-full h-[35%]  flex flex-col items-center">
                         <p className="text-center pt-2">Login</p>
                         <section className="flex items-center justify-evenly w-[80%] py-7">
@@ -23,7 +28,7 @@ const Login = () => {
                         </section>
                         <section className="w-[95%] h-[28%]">
                             <Button fullWidth className="bg-gray-900">Sign in</Button>
-                            <p class="mt-4 mb-0 leading-normal text-sm">Already have an account? <u class="font-bold text-blue-gray-700 cursor-pointer">Sign in</u></p>
+                            <p className="mt-4 mb-0 leading-normal text-sm">Already have an account? <u className="font-bold text-blue-gray-700 cursor-pointer">Sign in</u></p>
                         </section>
                     </section>
                 </section>

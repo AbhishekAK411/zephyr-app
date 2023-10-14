@@ -1,6 +1,6 @@
 import { Button } from "@material-tailwind/react";
 
-const Navbar = () => {
+const Navbar = ({ onLoginToggle }) => {
     return (
         <>
             <nav className="fixed top-0 w-full h-[80px] flex items-center justify-center">
@@ -9,7 +9,7 @@ const Navbar = () => {
                     <Button size="sm" variant="text" className="h-[80%] rounded-full text-gray-500">Feed</Button>
                     <Button size="sm" variant="text" className="h-[80%] rounded-full text-gray-500">Explore</Button>
                     <Button size="sm" variant="text" className="h-[80%] rounded-full text-gray-500">Features</Button>
-                    <Button size="sm" variant="text" className="h-[80%] rounded-full text-gray-500">Sign In</Button>
+                    <Button onClick={onLoginToggle} size="sm" variant="text" className="h-[80%] rounded-full text-gray-500">Sign In</Button>
                 </section>
             </nav>
         </>
