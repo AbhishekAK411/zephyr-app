@@ -1,9 +1,18 @@
 import { IconButton, Button, Input } from "@material-tailwind/react";
+import { useState } from "react";
+import { motion } from "framer-motion";
 
 const Login = ({ onLoginCloseToggle }) => {
+
+    const [userData, setUserData] = useState({username: "", email: "", password: "", confirmPassword: ""});
+
+    const handleChange = (e) => {
+        setUserData({...userData, [e.target.name]: e.target.value});
+    }
+    console.log(userData);
     return (
         <>
-            <section className={`animate-fade-in w-[600px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[500px] flex items-center justify-center`}>
+            <motion.section initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 0.5}} className={`w-[600px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[500px] flex items-center justify-center`}>
                 <section className="absolute right-8 top-6">
                     <IconButton onClick={onLoginCloseToggle} variant="text" className="rounded-full text-base">
                         <i className="fa fa-times" aria-hidden="true"></i>
@@ -21,10 +30,10 @@ const Login = ({ onLoginCloseToggle }) => {
                     </section>
                     <section className="w-full h-[59%] flex flex-col items-center justify-between">
                         <section className="w-[95%] h-[70%]  flex flex-col items-center justify-evenly">
-                            <Input label="Username" className="focus:border-gray-900 text-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" type="text" />
-                            <Input label="Email" className="focus:border-gray-900 text-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" type="text" />
-                            <Input label="Password" className="focus:border-gray-900  text-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" type="text" />
-                            <Input label="Confirm Password" className="focus:border-gray-900  text-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" type="text" />
+                            <Input onChange={handleChange} name="username" label="Username" className="focus:border-gray-900 text-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" type="text" />
+                            <Input onChange={handleChange} name="email" label="Email" className="focus:border-gray-900 text-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" type="text" />
+                            <Input onChange={handleChange} name="password" label="Password" className="focus:border-gray-900  text-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" type="text" />
+                            <Input onChange={handleChange} name="confirmPassword" label="Confirm Password" className="focus:border-gray-900  text-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow" type="text" />
                         </section>
                         <section className="w-[95%] h-[28%]">
                             <Button fullWidth className="bg-gray-900">Sign in</Button>
@@ -32,7 +41,7 @@ const Login = ({ onLoginCloseToggle }) => {
                         </section>
                     </section>
                 </section>
-            </section>
+            </motion.section>
         </>
     )
 }
