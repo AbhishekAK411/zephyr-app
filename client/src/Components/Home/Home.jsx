@@ -4,17 +4,17 @@ import Navigation from "../Global/Navigation";
 import Register from "../User/Register";
 
 const Home = () => {
-    const [loginRender, setLoginRender] = useState(false);
+    const [userRender, setUserRender] = useState(false);
 
-    const handleLoginState = () => {
-        setLoginRender((prev) => !prev);
+    const handleRenderState = () => {
+        setUserRender((prev) => !prev);
     }
     return (
         <>
-            {!loginRender && <Navbar onLoginToggle={handleLoginState} />}
-            {!loginRender && <Navigation />}
+            {!userRender && <Navbar onLoginToggle={handleRenderState} />}
+            {!userRender && <Navigation />}
             <main className="w-full min-h-screen border-black border">
-                {loginRender && <Register onLoginCloseToggle={handleLoginState} />}
+                {userRender && <Register onRegisterToggle={handleRenderState} />}
             </main>
         </>
     )

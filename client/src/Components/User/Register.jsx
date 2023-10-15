@@ -1,8 +1,11 @@
 import { IconButton, Button, Input } from "@material-tailwind/react";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { toast } from "react-hot-toast";
+import api from "../Utils/Axiosconfig";
+// import axios from "axios";
 
-const Register = ({ onLoginCloseToggle }) => {
+const Register = ({ onRegisterToggle }) => {
   const [userData, setUserData] = useState({
     username: "",
     email: "",
@@ -13,6 +16,25 @@ const Register = ({ onLoginCloseToggle }) => {
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
+
+  const handleRegister = async() => {
+    try {
+        const response = await api.post("/register", {
+            username: userData.username,
+            email: userData.email,
+            password: userData.password,
+            confirmPassword: userData.confirmPassword
+        });
+
+        const axiosResponse = response.data;
+        if(axiosResponse.success){
+            toast.success(axiosResponse.message);
+            onRegisterToggle();
+        }
+    } catch (error) {
+        toast.error(error?.response?.data?.message);
+    }
+  }
   return (
     <>
       <motion.section
@@ -23,7 +45,7 @@ const Register = ({ onLoginCloseToggle }) => {
       >
         <section className="absolute right-8 top-6">
           <IconButton
-            onClick={onLoginCloseToggle}
+            onClick={onRegisterToggle}
             variant="text"
             className="rounded-full text-base"
           >
@@ -85,7 +107,7 @@ const Register = ({ onLoginCloseToggle }) => {
             </section>
             <section className="w-[95%] h-[28%]">
               <Button
-                
+                onClick={handleRegister}
                 fullWidth
                 className="bg-gray-900"
               >
