@@ -2,8 +2,7 @@ import { IconButton, Button, Input } from "@material-tailwind/react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
-import api from "../Utils/Axiosconfig";
-// import axios from "axios";
+import api from "../../Utils/Axiosconfig";
 
 const Register = ({ onRegisterToggle }) => {
   const [userData, setUserData] = useState({

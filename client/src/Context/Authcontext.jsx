@@ -1,5 +1,5 @@
 import { createContext, useEffect, useReducer } from "react";
-import api from "../Components/Utils/Axiosconfig";
+import api from "../Utils/Axiosconfig";
 
 export const authContext = createContext();
 
