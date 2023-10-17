@@ -3,6 +3,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-hot-toast";
 import api from "../../Utils/Axiosconfig";
+import Login from "./Login";
 
 const Register = ({ onRegisterToggle }) => {
   const [userData, setUserData] = useState({
@@ -11,6 +12,8 @@ const Register = ({ onRegisterToggle }) => {
     password: "",
     confirmPassword: "",
   });
+
+  const [registerMode, setRegisterMode] = useState(true);
 
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -34,9 +37,14 @@ const Register = ({ onRegisterToggle }) => {
         toast.error(error?.response?.data?.message);
     }
   }
+
+  const handleSwitch = () => {
+    setRegisterMode((prev) => !prev);
+  }
   return (
     <>
-      <motion.section
+      {registerMode ? (<>
+        <motion.section
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -110,11 +118,11 @@ const Register = ({ onRegisterToggle }) => {
                 fullWidth
                 className="bg-gray-900"
               >
-                Sign in
+                Sign Up
               </Button>
               <p className="mt-4 mb-0 leading-normal text-sm">
                 Already have an account?{" "}
-                <u className="font-bold text-blue-gray-700 cursor-pointer">
+                <u onClick={handleSwitch} className="font-bold text-blue-gray-700 cursor-pointer">
                   Sign in
                 </u>
               </p>
@@ -122,6 +130,9 @@ const Register = ({ onRegisterToggle }) => {
           </section>
         </section>
       </motion.section>
+      </>) : (<>
+        <Login registerMode={handleSwitch} onRegisterToggle={onRegisterToggle} />
+      </>)}
     </>
   );
 };
