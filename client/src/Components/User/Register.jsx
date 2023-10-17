@@ -29,7 +29,7 @@ const Register = ({ onRegisterToggle }) => {
         });
 
         const axiosResponse = response.data;
-        if(axiosResponse.success){
+        if(axiosResponse?.success){
             toast.success(axiosResponse.message);
             onRegisterToggle();
         }

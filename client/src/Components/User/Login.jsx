@@ -1,15 +1,30 @@
 import { Button, IconButton, Input } from "@material-tailwind/react";
 import {motion} from "framer-motion";
-// import { useState } from "react";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
+import api from "../../Utils/Axiosconfig";
 
 const Login = ( { registerMode, onRegisterToggle } ) => {
-  // const [userData, setUserData] = useState({field: "", password: ""})
+  const [userData, setUserData] = useState({field: "", password: ""})
 
-    const handleChange = () => {
-      
+    const handleChange = (e) => {
+      setUserData({...userData, [e.target.name]: e.target.value})
     }
-    const handleLogin = () => {
+    const handleLogin = async() => {
+      try{
+        const response = await api.post("/login", {
+          field: userData.field,
+          password: userData.password
+        });
 
+        const axiosResponse = response.data;
+        if(axiosResponse?.success){
+          toast.success(axiosResponse?.message);
+        }
+        onRegisterToggle();
+      }catch(error){
+        toast.error(error?.response?.data?.message);
+      }
     }
     return (
         <>
@@ -54,7 +69,7 @@ const Login = ( { registerMode, onRegisterToggle } ) => {
                 <section className="w-[95%] h-[70%]  flex flex-col items-center justify-evenly">
                   <Input
                     onChange={handleChange}
-                    name="username"
+                    name="field"
                     label="Username or Email"
                     className="focus:border-gray-900 text-sm focus:shadow-soft-primary-outline leading-5.6 ease-soft block w-full appearance-none rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 px-3 font-normal text-gray-700 transition-all focus:border-fuchsia-300 focus:bg-white focus:text-gray-700 focus:outline-none focus:transition-shadow"
                     type="text"
