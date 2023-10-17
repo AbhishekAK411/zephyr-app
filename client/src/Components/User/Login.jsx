@@ -11,7 +11,7 @@ const Login = ( { registerMode, onRegisterToggle } ) => {
   });
 
     const handleChange = (e) => {
-      setUserData({...userData, [e.target.name]: e.target.value})
+      setUserData({...userData, [e.target.name]: e.target.value});
     }
     const handleLogin = async() => {
       try{
