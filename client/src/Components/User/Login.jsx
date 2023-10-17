@@ -5,7 +5,10 @@ import { toast } from "react-hot-toast";
 import api from "../../Utils/Axiosconfig";
 
 const Login = ( { registerMode, onRegisterToggle } ) => {
-  const [userData, setUserData] = useState({field: "", password: ""});
+  const [userData, setUserData] = useState({
+    field: "",
+    password: ""
+  });
 
     const handleChange = (e) => {
       setUserData({...userData, [e.target.name]: e.target.value})
