@@ -1,6 +1,10 @@
 import { Button } from "@material-tailwind/react";
+import { useContext } from "react";
+import { authContext } from "../../Context/Authcontext";
 
 const Navbar = ({ onLoginToggle }) => {
+
+    const {state} = useContext(authContext);
     return (
         <>
             <nav className="fixed top-0 w-full h-[80px] flex items-center justify-center">

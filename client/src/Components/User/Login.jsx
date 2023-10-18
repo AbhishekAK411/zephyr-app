@@ -10,7 +10,7 @@ const Login = ( { registerMode, onRegisterToggle } ) => {
     field: "",
     password: ""
   });
-  const {state, login} = useContext(authContext);
+  const {login} = useContext(authContext);
 
     const handleChange = (e) => {
       setUserData({...userData, [e.target.name]: e.target.value});
@@ -34,7 +34,6 @@ const Login = ( { registerMode, onRegisterToggle } ) => {
         toast.error(error?.response?.data?.message);
       }
     }
-    console.log(state);
     return (
         <>
           <motion.section
