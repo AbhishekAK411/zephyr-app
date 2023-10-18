@@ -1,15 +1,16 @@
 import { Button, IconButton, Input } from "@material-tailwind/react";
 import {motion} from "framer-motion";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import api from "../../Utils/Axiosconfig";
+import { authContext } from "../../Context/Authcontext";
 
 const Login = ( { registerMode, onRegisterToggle } ) => {
   const [userData, setUserData] = useState({
     field: "",
     password: ""
   });
-  const {state, login} = useContext()
+  const {state, login} = useContext(authContext);
 
     const handleChange = (e) => {
       setUserData({...userData, [e.target.name]: e.target.value});
@@ -24,7 +25,8 @@ const Login = ( { registerMode, onRegisterToggle } ) => {
         const axiosResponse = response.data;
         if(axiosResponse?.success){
           toast.success(axiosResponse?.message);
-
+          console.log(response.data);
+          login({token: response?.data?.token, payload: response?.data?.user})
           onRegisterToggle();
         }
         
@@ -32,6 +34,7 @@ const Login = ( { registerMode, onRegisterToggle } ) => {
         toast.error(error?.response?.data?.message);
       }
     }
+    console.log(state);
     return (
         <>
           <motion.section

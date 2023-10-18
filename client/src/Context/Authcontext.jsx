@@ -7,9 +7,9 @@ const initialState = {user: null};
 
 const reducer = (state,action) => {
     switch(action.type){
-        case login:
+        case "login":
             return {...state, user: action.payload}
-        case logout:
+        case "logout":
             return {...state, user: null}
         default:
             return state;
@@ -69,10 +69,11 @@ const HandleAuthContext = ({ children } ) => {
                     }
                 }
             }
-            window.addEventListener("storage", handleStorageEvent);
+        }
+
+        window.addEventListener("storage", handleStorageEvent);
             return () => {
                 window.removeEventListener("storage", handleStorageEvent);
-            }
         }
     }, []);
 

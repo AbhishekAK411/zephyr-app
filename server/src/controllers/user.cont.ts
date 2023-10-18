@@ -35,7 +35,7 @@ export const register = async(req: Request, res: Response) => {
 export const login = async(req: Request, res: Response) => {
     try {
         const {field}: _TLogin = req.body;
-        const existUser: _TExistUser | null = await User.findOne({$or: [{username: field}, {password: field}]}).exec();
+        const existUser: _TExistUser | null = await User.findOne({$or: [{username: field}, {email: field}]}).exec();
         const userId: object = {id: existUser._id};
         const token: string = jwt.sign(userId, process.env.JWT_SECRET);
         return res.status(200).json({status: 200, success: true, message: "Logged in successfully.", token: token, user: existUser});
@@ -49,11 +49,11 @@ export const getCurrentUser = async(req: Request,res: Response) => {
         const {token}: _TToken = req.body;
         const decodeToken = jwt.verify(token, process.env.JWT_SECRET) as JwtPayload;
         const userId = decodeToken.id;
-        const user = await User.findOne(userId).select("-password").exec();
+        const user = await User.findById(userId).select("-password").exec();
         if(user){
             return res.status(200).json({status: 200, success: true, data: user});
         }
     } catch (error) {
-        return res.status(500).json({status: 500, success: false, message: "Internal server error."});
+        return res.status(500).json({status: 500, success: false, message: "Internal server."});
     }
 }
