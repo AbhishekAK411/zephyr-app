@@ -9,6 +9,7 @@ const Login = ( { registerMode, onRegisterToggle } ) => {
     field: "",
     password: ""
   });
+  const {state, login} = useContext()
 
     const handleChange = (e) => {
       setUserData({...userData, [e.target.name]: e.target.value});
@@ -23,8 +24,10 @@ const Login = ( { registerMode, onRegisterToggle } ) => {
         const axiosResponse = response.data;
         if(axiosResponse?.success){
           toast.success(axiosResponse?.message);
+
+          onRegisterToggle();
         }
-        onRegisterToggle();
+        
       }catch(error){
         toast.error(error?.response?.data?.message);
       }
