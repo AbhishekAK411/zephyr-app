@@ -2,7 +2,7 @@ import { Button, Avatar } from "@material-tailwind/react";
 import { useContext } from "react";
 import { authContext } from "../../Context/Authcontext";
 import userDummyImage from "../../Resources/Images/userDummyImage.png";
-import { motion } from "framer-motion";;
+import { motion } from "framer-motion";
 
 const Navbar = ({ onLoginToggle }) => {
 
