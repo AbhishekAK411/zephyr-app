@@ -25,5 +25,8 @@ export type _TToken = {
     token: string
 }
 
-
 export type _TWinstonLogger = Logger;
+
+export type _TUserId = {
+    userId: string
+}
