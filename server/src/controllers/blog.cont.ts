@@ -40,13 +40,11 @@ export const getBlog = async (req: Request, res: Response) => {
 
     const findExistingUser: _TExistUser = await User.findById(userId).exec();
     if (!findExistingUser)
-      return res
-        .status(404)
-        .json({
-          status: 404,
-          success: false,
-          message: "Kindly create an account.",
-        });
+      return res.status(404).json({
+        status: 404,
+        success: false,
+        message: "Kindly create an account.",
+      });
   } catch (error) {
     return res
       .status(500)
