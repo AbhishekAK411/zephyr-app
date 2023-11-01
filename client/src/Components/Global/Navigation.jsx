@@ -48,13 +48,23 @@ const Navigation = () => {
                         </IconButton>
                     </Tooltip>
                 </motion.div>
-                <motion.div variants={buttonVariants} initial="initial" animate="animate" transition={transition}>
-                    <Tooltip content="Profile" className="bg-gray-900 rounded-full border text-white ml-[-10px]" placement="left" animate={animate}>
-                        <IconButton className="rounded-full text-[#800000] text-base" variant="text">
-                            <i className="fa fa-user" aria-hidden="true"></i>
-                        </IconButton>
-                    </Tooltip>
-                </motion.div>
+                {username ? (<>
+                    <motion.div variants={buttonVariants} initial="initial" animate="animate" transition={transition}>
+                        <Tooltip content={username} className="bg-gray-900 rounded-full border text-white ml-[-10px]" placement="left" animate={animate}>
+                            <IconButton className="rounded-full text-[#800000] text-base" variant="text">
+                                <i className="fa fa-user" aria-hidden="true"></i>
+                            </IconButton>
+                        </Tooltip>
+                    </motion.div>
+                </>) : (<>
+                    <motion.div variants={buttonVariants} initial="initial" animate="animate" transition={transition}>
+                        <Tooltip content="Profile" className="bg-gray-900 rounded-full border text-white ml-[-10px]" placement="left" animate={animate}>
+                            <IconButton className="rounded-full text-[#800000] text-base" variant="text">
+                                <i className="fa fa-user" aria-hidden="true"></i>
+                            </IconButton>
+                        </Tooltip>
+                    </motion.div>
+                </>)}
                 <motion.div variants={buttonVariants} initial="initial" animate="animate" transition={transition}>
                     <Tooltip content="Your Blogs" className="bg-gray-900 rounded-full border text-white ml-[-10px]" placement="left" animate={animate}>
                         <IconButton className="rounded-full text-[#800000] text-base" variant="text">

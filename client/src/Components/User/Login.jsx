@@ -40,7 +40,7 @@ const Login = ( { registerMode, onRegisterToggle } ) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className={`w-[600px] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[500px] flex items-center justify-center`}
+            className={`w-[600px] bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[500px] flex items-center justify-center`}
           >
             <section className="absolute right-8 top-6">
               <IconButton
