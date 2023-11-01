@@ -36,6 +36,17 @@ export const createBlog = async (req: Request, res: Response) => {
 
 export const getBlog = async (req: Request, res: Response) => {
   try {
+    const { userId } = req.body;
+
+    const findExistingUser: _TExistUser = await User.findById(userId).exec();
+    if (!findExistingUser)
+      return res
+        .status(404)
+        .json({
+          status: 404,
+          success: false,
+          message: "Kindly create an account.",
+        });
   } catch (error) {
     return res
       .status(500)
