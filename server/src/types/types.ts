@@ -18,7 +18,6 @@ export type _TExistUser = {
   email: string;
   password: string;
   role: string;
-  posts: Array<Object>;
 };
 
 export type _TToken = {

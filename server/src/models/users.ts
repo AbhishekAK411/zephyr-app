@@ -10,7 +10,6 @@ interface Iuser extends Document{
     email: string,
     password: string,
     role: userRole,
-    posts: Array<Object>
 }
 
 const userSchema = new Schema({
@@ -45,10 +44,7 @@ const userSchema = new Schema({
         type: String,
         enum: Object.values(userRole),
         default: userRole.Reader
-    },
-    posts: {
-        type: [Object]
     }
-})
+});
 
 export default mongoose.model<Iuser>("User", userSchema);
