@@ -9,13 +9,11 @@ export const createBlog = async (req: Request, res: Response) => {
 
     const findExistingUser: _TExistUser = await User.findById(userId).exec();
     if (findExistingUser.role !== "Content Creator") {
-      return res
-        .status(400)
-        .json({
-          status: 400,
-          success: false,
-          message: "You are not designated to add blogs.",
-        });
+      return res.status(400).json({
+        status: 400,
+        success: false,
+        message: "You are not designated to add blogs.",
+      });
     }
 
     const newBlog = new Blog({
@@ -24,13 +22,11 @@ export const createBlog = async (req: Request, res: Response) => {
       user: userId,
     });
     await newBlog.save();
-    return res
-      .status(201)
-      .json({
-        status: 201,
-        success: true,
-        message: "Blog created successfully.",
-      });
+    return res.status(201).json({
+      status: 201,
+      success: true,
+      message: "Blog created successfully.",
+    });
   } catch (error) {
     return res
       .status(500)
