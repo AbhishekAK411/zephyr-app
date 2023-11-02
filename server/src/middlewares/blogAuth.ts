@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import User from "models/users";
+import User from "../models/users";
 import { _TExistUser, _TUserId } from "types/types";
 
 export const checkAddBlog = async(req: Request, res: Response, next: NextFunction) => {
