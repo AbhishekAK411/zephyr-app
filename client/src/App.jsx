@@ -1,6 +1,6 @@
 import {Route, Routes} from "react-router-dom";
 import Home from "./Components/Home/Home";
-import Login from "./Components/User/Login";
+import Createblog from "./Components/Blogs/Createblog";
 
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
     <>
       <Routes>
         <Route exact path="/" element={<Home />} />
-        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/test" element={<Createblog />} />
       </Routes>
     </>
   );

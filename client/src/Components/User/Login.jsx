@@ -40,7 +40,7 @@ const Login = ( { registerMode, onRegisterToggle } ) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className={`w-[600px] z-10  bg-white absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[500px] flex items-center justify-center`}
+            className={`w-[600px] z-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[500px] flex items-center justify-center`}
           >
             <section className="absolute right-8 top-6">
               <IconButton
@@ -51,7 +51,7 @@ const Login = ( { registerMode, onRegisterToggle } ) => {
                 <i className="fa fa-times" aria-hidden="true"></i>
               </IconButton>
             </section>
-            <section className="w-[95%] h-[95%] border rounded-xl flex flex-col justify-evenly shadow-2xl">
+            <section className="w-[95%] bg-white h-[95%] border rounded-xl flex flex-col justify-evenly shadow-2xl">
               <section className="w-full h-[35%]  flex flex-col items-center">
                 <p className="text-center pt-2">Login</p>
                 <section className="flex items-center justify-evenly w-[80%] py-7">
