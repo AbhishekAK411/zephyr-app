@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import blogApi from "../../Utils/Blogconfig";
 import { authContext } from "../../Context/Authcontext";
+import {motion} from "framer-motion";
 
 const Createblog = () => {
   const [blogData, setBlogData] = useState({title: "", description: "", image: ""});
@@ -27,9 +28,22 @@ const Createblog = () => {
       toast.error(error?.response?.data?.message);
     }
   }
+
+  const createblogvariants = {
+    initial: {
+      opacity: 0
+    },
+    animate: {
+      opacity: 1
+    }
+  }
+
+  const transitions = {
+    duration: 0.5
+  }
   return (
     <>
-      <section className="w-[600px] z-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[500px] flex items-center justify-center">
+      <motion.section variants={createblogvariants} initial="initial" animate="animate" transition={transitions} className="w-[600px] z-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-[500px] flex items-center justify-center">
         <section className="absolute right-8 top-6">
           <IconButton
             variant="text"
@@ -56,7 +70,7 @@ const Createblog = () => {
           </section>
           <Button onClick={handleBlogSubmit}>Submit</Button>
         </section>
-      </section>
+      </motion.section>
     </>
   );
 };
