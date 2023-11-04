@@ -20,7 +20,7 @@ export const addBlog = async(req: Request, res: Response) => {
         });
 
         await newBlog.save();
-        return res.status(201).json({status: 201, success: false, message: "Blog created."});
+        return res.status(201).json({status: 201, success: true, message: "Blog created."});
     } catch (error) {
         return res.status(500).json({status: 500, success: false, message: "Internal server error."});
     }
