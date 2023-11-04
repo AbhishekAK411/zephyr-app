@@ -65,7 +65,7 @@ export const changeRole = async(req: Request,res: Response) => {
         const findExistingUser: _TExistUser = await User.findById(userId).exec();
         if(!findExistingUser) return res.status(404).json({status: 404, success: false, message: "User not found."});
 
-        if(findExistingUser.role === "reader"){
+        if(findExistingUser.role === "Reader"){
             findExistingUser.role = "Content Creator";
             await findExistingUser.save();
             return res.status(200).json({status: 200, success: true, message: "Role changed successfully."});

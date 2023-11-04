@@ -45,19 +45,19 @@ export const checkLogin = async(req: Request, res: Response, next: NextFunction)
     }
 }
 
-export const checkChangeRole = async(req: Request,res: Response, next: NextFunction) => {
+export const checkChangeRole = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const {userId}: _TUserId = req.body;
-        if(!userId) return res.status(404).json({status: 404, success: false, message: "You are not logged in."});
+        const { userId }: _TUserId = req.body;
+        if (!userId) return res.status(404).json({ status: 404, success: false, message: "You are not logged in." });
 
         const findExistingUser: _TExistUser = await User.findById(userId).exec();
-        if(!findExistingUser) return res.status(404).json({status: 404, success: false, message: "User not found."});
+        if (!findExistingUser) return res.status(404).json({ status: 404, success: false, message: "User not found." });
 
-        if(findExistingUser.role !== "Reader"){
-            return res.status(400).json({status: 400, success: false, message: "You are already a creator."});
+        if (findExistingUser.role !== "Reader") {
+            return res.status(400).json({ status: 400, success: false, message: "You are already a creator." });
         }
         next();
     } catch (error) {
-        return res.status(500).json({status: 500, success: false, message: "Internal server error."});
+        return res.status(500).json({ status: 500, success: false, message: "Internal server error." });
     }
 }

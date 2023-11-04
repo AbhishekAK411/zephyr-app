@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useContext } from "react";
 import { authContext } from "../../Context/Authcontext";
 import { toast } from "react-hot-toast";
+import api from "../../Utils/Axiosconfig";
 
 const Navigation = () => {
 
@@ -14,11 +15,20 @@ const Navigation = () => {
         logout();
         toast.success("logged out successfully.");
     }
-    const becomeAContentCreator = () => {
-        try {
-            
-        } catch (error) {
-            toast.error(error?.response?.data?.message);
+    const becomeAContentCreator = async() => {
+        if(state?.user?._id){
+            try {
+                const response = await api.post("/change", {
+                    userId: state?.user?._id
+                });
+                const axiosResponse = response?.data;
+                if(axiosResponse?.success){
+                    toast.success(axiosResponse?.message);
+                    window.location.reload();
+                }
+            } catch (error) {
+                toast.error(error?.response?.data?.message);
+            }
         }
     }
     const animate = {
