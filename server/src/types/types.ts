@@ -1,4 +1,5 @@
 import { Logger } from "winston";
+import {Document} from "mongoose";
 
 export type _TRegister = {
   username: string;
@@ -12,7 +13,7 @@ export type _TLogin = {
   password: string;
 };
 
-export type _TExistUser = {
+export type _TExistUser = Document & {
   _id: string;
   username: string;
   email: string;

@@ -3,7 +3,7 @@ import User from "../models/users";
 import { emailValidator } from "../utils/emailValidator";
 import { validator } from "../utils/passwordValidator";
 import bcrypt from "bcrypt";
-import { _TRegister, _TLogin, _TExistUser } from "types/types";
+import { _TRegister, _TLogin, _TExistUser, _TUserId } from "types/types";
 import { errorLogger, infoLogger } from "../helpers/logger";
 
 export const checkRegister = async(req: Request, res: Response, next: NextFunction) => {
@@ -40,6 +40,23 @@ export const checkLogin = async(req: Request, res: Response, next: NextFunction)
         }else{
             return res.status(400).json({status: 400, success: false, message: "Invalid credentials."});
         }
+    } catch (error) {
+        return res.status(500).json({status: 500, success: false, message: "Internal server error."});
+    }
+}
+
+export const checkChangeRole = async(req: Request,res: Response, next: NextFunction) => {
+    try {
+        const {userId}: _TUserId = req.body;
+        if(!userId) return res.status(404).json({status: 404, success: false, message: "You are not logged in."});
+
+        const findExistingUser: _TExistUser = await User.findById(userId).exec();
+        if(!findExistingUser) return res.status(404).json({status: 404, success: false, message: "User not found."});
+
+        if(findExistingUser.role !== "Reader"){
+            return res.status(400).json({status: 400, success: false, message: "You are already a creator."});
+        }
+        next();
     } catch (error) {
         return res.status(500).json({status: 500, success: false, message: "Internal server error."});
     }

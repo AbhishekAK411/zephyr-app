@@ -8,10 +8,18 @@ const Navigation = () => {
 
     const {state, logout} = useContext(authContext);
     const username = state?.user?.username;
+    const userrole = state?.user?.role;
 
     const handleLogout = () => {
         logout();
         toast.success("logged out successfully.");
+    }
+    const becomeAContentCreator = () => {
+        try {
+            
+        } catch (error) {
+            toast.error(error?.response?.data?.message);
+        }
     }
     const animate = {
         mount: {
@@ -72,13 +80,23 @@ const Navigation = () => {
                         </IconButton>
                     </Tooltip>
                 </motion.div>
-                <motion.div variants={buttonVariants} initial="initial" animate="animate" transition={transition}>
-                    <Tooltip content="Community" className="bg-gray-900 rounded-full border text-white ml-[-10px]" placement="left" animate={animate}>
-                        <IconButton className="rounded-full text-[#800000] text-base" variant="text">
-                            <i className="fab fa-bandcamp" aria-hidden="true"></i>
-                        </IconButton>
-                    </Tooltip>
-                </motion.div>
+                {userrole === "Reader" ? (<>
+                    <motion.div variants={buttonVariants} initial="initial" animate="animate" transition={transition}>
+                        <Tooltip content="Become a Content Creator" className="bg-gray-900 rounded-full border text-white ml-[-10px]" placement="left" animate={animate}>
+                            <IconButton onClick={becomeAContentCreator} className="rounded-full text-[#800000] text-base" variant="text">
+                                <i className="fab fa-bandcamp" aria-hidden="true"></i>
+                            </IconButton>
+                        </Tooltip>
+                    </motion.div>
+                </>) : (<>
+                    <motion.div variants={buttonVariants} initial="initial" animate="animate" transition={transition}>
+                        <Tooltip content="Community" className="bg-gray-900 rounded-full border text-white ml-[-10px]" placement="left" animate={animate}>
+                            <IconButton className="rounded-full text-[#800000] text-base" variant="text">
+                                <i className="fab fa-bandcamp" aria-hidden="true"></i>
+                            </IconButton>
+                        </Tooltip>
+                    </motion.div>
+                </>)}
                 {username ? (<><motion.div onClick={handleLogout} variants={buttonVariants} initial="initial" animate="animate" transition={transition}>
                     <Tooltip content="Logout" className="bg-gray-900 rounded-full border text-white ml-[-10px]" placement="left" animate={animate}>
                         <IconButton className="rounded-full text-[#800000] text-base" variant="text">
