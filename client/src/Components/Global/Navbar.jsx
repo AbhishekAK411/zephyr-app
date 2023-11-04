@@ -24,7 +24,7 @@ const Navbar = ({ onLoginToggle }) => {
     }
     return (
         <>
-            <motion.nav variants={navbarVariants} initial="initial" animate="animate" transition={transition} className="select-none fixed top-0 w-full h-[80px] flex items-center justify-center">
+            <motion.nav variants={navbarVariants} initial="initial" animate="animate" transition={transition} className="z-50 select-none fixed top-0 w-full h-[80px] flex items-center justify-center">
                 <section className="w-[40%] h-[60%] border rounded-full backdrop-blur-lg shadow-xl flex items-center justify-evenly">
                     <Button size="sm" variant="text" className="h-[80%] rounded-full text-gray-500">Home</Button>
                     <Button size="sm" variant="text" className="h-[80%] rounded-full text-gray-500">Feed</Button>
