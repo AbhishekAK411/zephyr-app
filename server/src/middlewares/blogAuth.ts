@@ -20,3 +20,11 @@ export const checkAddBlog = async(req: Request, res: Response, next: NextFunctio
         return res.status(500).json({status: 500, success: false, message: "Internal server error."});
     }
 }
+
+export const checkGetAllBlogs = async(req: Request, res: Response, next: NextFunction) => {
+    try {
+        const {userId} = req.body;
+    } catch (error) {
+        return res.status(500).json({status: 500, success: false, message: "Internal server error."});
+    }
+}

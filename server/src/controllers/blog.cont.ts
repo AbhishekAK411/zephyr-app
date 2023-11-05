@@ -25,3 +25,11 @@ export const addBlog = async(req: Request, res: Response) => {
         return res.status(500).json({status: 500, success: false, message: "Internal server error."});
     }
 }
+
+export const getAllBlogs = async(req: Request, res: Response) => {
+    try {
+        const {userId} = req.body;
+    } catch (error) {
+        return res.status(500).json({status: 500, success: false, message: "Internal server error."});
+    }
+}
