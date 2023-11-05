@@ -35,7 +35,7 @@ export const getAllBlogs = async(req: Request, res: Response) => {
         if(!findExistingUser) return res.status(404).json({status: 404, success: false, message: "User not found."});
         
         if(findExistingUser.role){
-            const allBlogs = await Blog.find({}).exec();
+            const allBlogs = await Blog.find({}).select("-user").exec();
             return res.status(200).json({status: 200, success: true, allBlogs: allBlogs});
         }
     } catch (error) {
