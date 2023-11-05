@@ -23,7 +23,15 @@ export const checkAddBlog = async(req: Request, res: Response, next: NextFunctio
 
 export const checkGetAllBlogs = async(req: Request, res: Response, next: NextFunction) => {
     try {
-        const {userId} = req.body;
+        const {userId}: _TUserId = req.body;
+        if(!userId) return res.status(404).json({status: 404, success: false, message: "You are not logged in."});
+
+        const findExistingUser: _TExistUser = await User.findById(userId).exec();
+        if(!findExistingUser) return res.status(404).json({status: 404, success: false, message: "User not found."});
+
+        if(findExistingUser.role){
+            next();
+        }
     } catch (error) {
         return res.status(500).json({status: 500, success: false, message: "Internal server error."});
     }

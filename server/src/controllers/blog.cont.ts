@@ -28,7 +28,16 @@ export const addBlog = async(req: Request, res: Response) => {
 
 export const getAllBlogs = async(req: Request, res: Response) => {
     try {
-        const {userId} = req.body;
+        const {userId}: _TUserId = req.body;
+        if(!userId) return res.status(404).json({status: 404, success: false, message: "You are not logged in."});
+
+        const findExistingUser: _TExistUser = await User.findById(userId).exec();
+        if(!findExistingUser) return res.status(404).json({status: 404, success: false, message: "User not found."});
+        
+        if(findExistingUser.role){
+            const allBlogs = await Blog.find({}).exec();
+            return res.status(200).json({status: 200, success: true, allBlogs: allBlogs});
+        }
     } catch (error) {
         return res.status(500).json({status: 500, success: false, message: "Internal server error."});
     }
