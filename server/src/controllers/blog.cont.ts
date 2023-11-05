@@ -5,7 +5,7 @@ import { _TExistUser, _TUserId } from "types/types";
 
 export const addBlog = async(req: Request, res: Response) => {
     try {
-        const {userId, title, description}: _TUserId = req.body;
+        const {userId, title, shortDescription, description}: _TUserId = req.body;
         
         const findExistingUser: _TExistUser = await User.findById(userId).exec();
         if(!findExistingUser) return res.status(404).json({status: 404, success: false, message: "User not found."});
@@ -15,6 +15,7 @@ export const addBlog = async(req: Request, res: Response) => {
         }
         const newBlog = new Blog({
             title,
+            shortDescription,
             description,
             user: userId
         });

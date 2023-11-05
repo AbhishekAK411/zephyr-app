@@ -30,5 +30,6 @@ export type _TWinstonLogger = Logger;
 export type _TUserId = {
   userId: string;
   title: string;
+  shortDescription: string;
   description: string;
 };

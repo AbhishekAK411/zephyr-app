@@ -4,9 +4,10 @@ import { _TExistUser, _TUserId } from "types/types";
 
 export const checkAddBlog = async(req: Request, res: Response, next: NextFunction) => {
     try {
-        const {userId, title, description}: _TUserId = req.body;
+        const {userId, title, shortDescription, description}: _TUserId = req.body;
         if(!userId) return res.status(404).json({status: 404, success: false, message: "You are not logged in."});
         if(!title) return res.status(404).json({status: 404, success: false, message: "Title is required."});
+        if(!shortDescription) return res.status(404).json({status: 404, success: false, message: "Short description is required."});
         if(!description) return res.status(404).json({status: 404, success: false, message: "Description is required."});
 
         const findExistingUser: _TExistUser = await User.findById(userId).exec();
