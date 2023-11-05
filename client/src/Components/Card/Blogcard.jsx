@@ -7,7 +7,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 
-const Blogcard = () => {
+const Blogcard = ({data}) => {
   return (
     <>
       <section className="w-[60%] min-h-screen flex flex-col items-center py-5 gap-y-5">

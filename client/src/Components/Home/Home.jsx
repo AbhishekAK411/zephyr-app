@@ -6,6 +6,7 @@ import Navigation from "../Global/Navigation";
 import Register from "../User/Register";
 import Blogcard from "../Card/Blogcard";
 import blogApi from "../../Utils/Blogconfig";
+import Datanotfound from "../Errorpages/Datanotfound";
 
 const Home = () => {
   const [blogData, setBlogData] = useState([]);
@@ -43,7 +44,13 @@ const Home = () => {
       <main className="w-full min-h-screen">
         {userRender && <Register onRegisterToggle={handleRenderState} />}
         <section className="pt-20 w-full flex items-center justify-center min-h-screen">
-          <Blogcard />
+          {blogData?.length ? (<>
+            {blogData?.map((data, index) => (
+              <Blogcard key={index} data={data} />
+            ))}
+          </>) : (<>
+            <Datanotfound />
+          </>)}
         </section>
       </main>
     </>
