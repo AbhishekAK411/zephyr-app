@@ -43,7 +43,7 @@ const Home = () => {
       {!userRender && <Navigation />}
       <main className="w-full min-h-screen">
         {userRender && <Register onRegisterToggle={handleRenderState} />}
-        <section className="pt-20 w-full flex items-center justify-center min-h-screen">
+        <section className="pt-20 w-full flex flex-col items-center justify-center min-h-screen">
           {blogData?.length ? (<>
             {blogData?.map((data, index) => (
               <Blogcard key={index} data={data} />

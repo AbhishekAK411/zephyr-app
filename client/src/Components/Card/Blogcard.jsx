@@ -6,11 +6,17 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
+import { useNavigate } from "react-router-dom";
 
 const Blogcard = ({data}) => {
+  const router = useNavigate();
+
+  const redirectToSingleBlog = (id) => {
+    router(`/blog/${id}`);
+  }
   return (
     <>
-      <section className="w-[60%] min-h-screen flex flex-col items-center py-5 gap-y-5">
+      <section className="w-[60%] flex flex-col items-center py-5 gap-y-5">
         <section className="w-[90%] h-[500px] flex items-center justify-center rounded-lg">
           <Card className="mt-6 w-[90%] shadow-stripe">
             <CardHeader color="blue-gray" className="relative h-56">
@@ -18,16 +24,14 @@ const Blogcard = ({data}) => {
             </CardHeader>
             <CardBody>
               <Typography variant="h5" color="blue-gray" className="mb-2">
-                UI/UX Review Check
+                {data.title}
               </Typography>
               <Typography>
-                The place is close to Barceloneta Beach and bus stop just 2 min
-                by walk and near to &quot;Naviglio&quot; where you can enjoy the
-                main night life in Barcelona.
+                {data.shortDescription}
               </Typography>
             </CardBody>
             <CardFooter className="pt-0">
-              <Button>Read More</Button>
+              <Button onClick={() => redirectToSingleBlog(data._id)}>Read More</Button>
             </CardFooter>
           </Card>
         </section>
