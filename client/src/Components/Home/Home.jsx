@@ -4,8 +4,8 @@ import { authContext } from "../../Context/Authcontext";
 import Navbar from "../Global/Navbar";
 import Navigation from "../Global/Navigation";
 import Register from "../User/Register";
-import api from "../../Utils/Axiosconfig";
 import Blogcard from "../Card/Blogcard";
+import blogApi from "../../Utils/Blogconfig";
 
 const Home = () => {
   const [blogData, setBlogData] = useState([]);
@@ -14,24 +14,28 @@ const Home = () => {
 
   //* fetching blog data and storing it in a state.(Call the function)
   useEffect(() => {
-    const getBlogs = async () => {
-      try {
-        const response = await api.post("/getBlogs", {
-          userId: state?.user?._id,
-        });
-        const axiosResponse = response?.data;
-        if (axiosResponse?.success) {
-          setBlogData(axiosResponse.blogs);
+    if(state?.user?._id){
+      const getBlogs = async () => {
+        try {
+          const response = await blogApi.post("/feed", {
+            userId: state?.user?._id,
+          });
+          const axiosResponse = response?.data;
+          if (axiosResponse?.success) {
+            setBlogData(axiosResponse.allBlogs);
+          }
+        } catch (error) {
+          toast.error(error?.response?.data?.message);
         }
-      } catch (error) {
-        toast.error(error?.response?.data?.message);
-      }
-    };
+      };
+      getBlogs();
+    }
   }, [state?.user?._id]);
 
   const handleRenderState = () => {
     setUserRender((prev) => !prev);
   };
+  console.log(blogData);
   return (
     <>
       {!userRender && <Navbar onLoginToggle={handleRenderState} />}
