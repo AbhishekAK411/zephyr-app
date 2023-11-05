@@ -6,11 +6,13 @@ import { authContext } from "../../Context/Authcontext";
 import {motion} from "framer-motion";
 import { useQuill } from "react-quilljs";
 import 'quill/dist/quill.snow.css';
+import { useNavigate } from "react-router-dom";
 
 const Createblog = () => {
-  const [blogData, setBlogData] = useState({title: "", description: "", fileUpload: ""});
+  const [blogData, setBlogData] = useState({title: "", shortDescription: "", description: "", fileUpload: ""});
   const {state} = useContext(authContext);
   const {quill, quillRef} = useQuill();
+  const router = useNavigate();
 
   useEffect(() => {
     if(quill){
@@ -30,12 +32,14 @@ const Createblog = () => {
       const response = await blogApi.post("/create", {
         userId: state?.user?._id,
         title: blogData.title,
+        shortDescription: blogData.shortDescription,
         description: blogData.description,
       });
 
       const axiosResponse = response?.data;
       if(axiosResponse?.success){
         toast.success(axiosResponse?.message);
+        router("/");
       }
     } catch (error) {
       toast.error(error?.response?.data?.message);
@@ -60,6 +64,7 @@ const Createblog = () => {
       <motion.section variants={createblogvariants} initial="initial" animate="animate" transition={transitions} className="w-full min-h-screen border-black border flex justify-center">
         <section className="w-[95%] py-5 flex flex-col gap-y-5">
           <Input onChange={handleChange} name="title" type="text" label="Title" variant="standard" />
+          <Input onChange={handleChange} name="shortDescription" type="text" label="Short Description" variant="standard" />
           <div className="h-[600px] w-full">
             <div ref={quillRef} />
           </div>
