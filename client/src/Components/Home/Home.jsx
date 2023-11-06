@@ -36,7 +36,7 @@ const Home = () => {
   const handleRenderState = () => {
     setUserRender((prev) => !prev);
   };
-  console.log(blogData);
+  
   return (
     <>
       {!userRender && <Navbar onLoginToggle={handleRenderState} />}
