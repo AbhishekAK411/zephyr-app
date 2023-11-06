@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import Blog from "../models/blogs";
 import User from "../models/users";
-import { _TExistUser, _TUserId } from "types/types";
+import { _TExistBlog, _TExistUser, _TUserId } from "types/types";
 
 export const addBlog = async(req: Request, res: Response) => {
     try {
@@ -38,6 +38,21 @@ export const getAllBlogs = async(req: Request, res: Response) => {
         if(findExistingUser.role){
             const allBlogs = await Blog.find({}).select("-user").exec();
             return res.status(200).json({status: 200, success: true, allBlogs: allBlogs});
+        }
+    } catch (error) {
+        return res.status(500).json({status: 500, success: false, message: "Internal server error."});
+    }
+}
+
+export const getSingleBlog = async(req: Request, res: Response) => {
+    try {
+        const {userId, blogId} = req.body;
+
+        const findExistingBlog: _TExistBlog = await Blog.findById(blogId).exec();
+        if(!findExistingBlog) return res.status(404).json({status: 404, success: false, message: "Blog not found."});
+
+        if(findExistingBlog){
+            return res.status(200).json({status: 200, success: true, singleBlog: findExistingBlog});
         }
     } catch (error) {
         return res.status(500).json({status: 500, success: false, message: "Internal server error."});

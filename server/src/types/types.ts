@@ -1,5 +1,5 @@
 import { Logger } from "winston";
-import {Document} from "mongoose";
+import {Document, ObjectId} from "mongoose";
 
 export type _TRegister = {
   username: string;
@@ -33,3 +33,18 @@ export type _TUserId = {
   shortDescription: string;
   description: string;
 };
+
+export type _TBlogId = _TUserId & {
+  blogId: string;
+}
+
+export type _TExistBlog = {
+  _id: ObjectId;
+  title: string;
+  shortDescription: string;
+  description: string;
+  upvotes: number;
+  downvotes: number;
+  comments: string[];
+  user: ObjectId;
+}

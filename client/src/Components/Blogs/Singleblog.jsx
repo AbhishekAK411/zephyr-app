@@ -9,6 +9,7 @@ const Singleblog = () => {
     const {id} = useParams();
     const {state} = useContext(authContext);
     
+    //* This is to fetch single blog data from server.
     useEffect(() => {
         const getSingleBlogData = async() => {
             try {
@@ -29,8 +30,8 @@ const Singleblog = () => {
     
     return (
         <>
-            <section className="w-full min-h-screen border-black border">
-
+            <section className="w-full min-h-screen border-black border flex items-center justify-center">
+                <section className=""></section>
             </section>
         </>
     )

@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import User from "../models/users";
-import { _TExistUser, _TUserId } from "types/types";
+import { _TBlogId, _TExistBlog, _TExistUser, _TUserId } from "types/types";
+import Blog from "../models/blogs";
 
 export const checkAddBlog = async(req: Request, res: Response, next: NextFunction) => {
     try {
@@ -33,6 +34,27 @@ export const checkGetAllBlogs = async(req: Request, res: Response, next: NextFun
         if(findExistingUser.role){
             next();
         }
+    } catch (error) {
+        return res.status(500).json({status: 500, success: false, message: "Internal server error."});
+    }
+}
+
+export const checkGetSingleBlog = async(req: Request, res: Response, next: NextFunction) => {
+    try {
+        const {userId, blogId}: _TBlogId = req.body;
+        if(!userId) return res.status(404).json({status: 404, success: false, message: "You are not logged in."});
+        if(!blogId) return res.status(404).json({status: 404, success: false, message: "Blog not found."});
+
+        const findExistingUser: _TExistUser = await User.findById(userId).exec();
+        if(!findExistingUser) return res.status(404).json({status: 404, success: false, message: "User not found."});
+
+        const findExistingBlog: _TExistBlog = await Blog.findById(blogId).exec();
+        if(!findExistingBlog) return res.status(404).json({status: 404, success: false, message: "Blog not found."});
+
+        if(findExistingBlog && findExistingUser){
+            next();
+        }
+        
     } catch (error) {
         return res.status(500).json({status: 500, success: false, message: "Internal server error."});
     }

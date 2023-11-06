@@ -1,11 +1,13 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema, Document, ObjectId } from "mongoose";
 
 interface IBlog extends Document {
   title: string;
+  shortDescription: string;
+  description: string;
   upvotes: number;
   downvotes: number;
-  comments: Array<String>;
-  user: string;
+  comments: string[];
+  user: ObjectId;
 }
 
 const blogSchema = new Schema({
