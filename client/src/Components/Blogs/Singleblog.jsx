@@ -33,7 +33,7 @@ const Singleblog = () => {
     return (
         <>
             <section className="w-full min-h-screen border-black border flex items-center justify-center">
-                <section className=""></section>
+                <section className="w-[95%] min-h-screen border-black border"></section>
             </section>
         </>
     )
