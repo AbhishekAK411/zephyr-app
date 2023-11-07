@@ -46,9 +46,9 @@ export const getAllBlogs = async(req: Request, res: Response) => {
 
 export const getSingleBlog = async(req: Request, res: Response) => {
     try {
-        const {userId, blogId} = req.body;
+        const {blogId} = req.body;
 
-        const findExistingBlog: _TExistBlog = await Blog.findById(blogId).exec();
+        const findExistingBlog: _TExistBlog = await Blog.findById(blogId).select('-user').exec();
         if(!findExistingBlog) return res.status(404).json({status: 404, success: false, message: "Blog not found."});
 
         if(findExistingBlog){

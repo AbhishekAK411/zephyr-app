@@ -11,23 +11,25 @@ const Singleblog = () => {
     
     //* This is to fetch single blog data from server.
     useEffect(() => {
-        const getSingleBlogData = async() => {
-            try {
-                const response = await blogApi.post("/", {
-                    userId: state?.user?._id,
-                    blogId: id
-                });
-                const axiosResponse = response?.data;
-                if(axiosResponse?.success){
-                    setSingleBlogData(axiosResponse.singleBlog);
+        if(state?.user?._id){
+            const getSingleBlogData = async() => {
+                try {
+                    const response = await blogApi.post("/getSingle", {
+                        userId: state?.user?._id,
+                        blogId: id
+                    });
+                    const axiosResponse = response?.data;
+                    if(axiosResponse?.success){
+                        setSingleBlogData(axiosResponse.singleBlog);
+                    }
+                } catch (error) {
+                    toast.error(error?.response?.data?.message);
                 }
-            } catch (error) {
-                toast.error(error?.response?.data?.message);
             }
+            getSingleBlogData();
         }
     }, [state?.user?._id, id]);
 
-    
     return (
         <>
             <section className="w-full min-h-screen border-black border flex items-center justify-center">
