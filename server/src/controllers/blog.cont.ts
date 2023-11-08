@@ -48,11 +48,14 @@ export const getSingleBlog = async(req: Request, res: Response) => {
     try {
         const {blogId} = req.body;
 
-        const findExistingBlog: _TExistBlog = await Blog.findById(blogId).select('-user').exec();
+        const findExistingBlog: _TExistBlog = await Blog.findById(blogId).exec();
         if(!findExistingBlog) return res.status(404).json({status: 404, success: false, message: "Blog not found."});
 
+        const findExistingUser: _TExistUser = await User.findById(findExistingBlog.user).exec();
+        if(!findExistingUser) return res.status(404).json({status: 404, success: false, message: "User not found."});
+
         if(findExistingBlog){
-            return res.status(200).json({status: 200, success: true, singleBlog: findExistingBlog});
+            return res.status(200).json({status: 200, success: true, singleBlog: findExistingBlog, author: findExistingUser.username});
         }
     } catch (error) {
         return res.status(500).json({status: 500, success: false, message: "Internal server error."});
