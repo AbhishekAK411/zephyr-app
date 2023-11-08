@@ -3,6 +3,7 @@ import { toast } from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import blogApi from "../../Utils/Blogconfig";
 import { authContext } from "../../Context/Authcontext";
+import Blogpost from "../Card/Blogpost";
 
 const Singleblog = () => {
     const [singleBlogData, setSingleBlogData] = useState();
@@ -32,9 +33,11 @@ const Singleblog = () => {
 
     return (
         <>
-            <section className="w-full min-h-screen border-black border flex items-center justify-center">
-                <section className="w-[95%] min-h-screen border-black border"></section>
-            </section>
+            <div className="w-full h-screen border-black border flex items-center justify-center">
+                <div className="w-[95%] h-screen flex items-center justify-center">
+                    <Blogpost post={singleBlogData} />
+                </div>
+            </div>
         </>
     )
 }
