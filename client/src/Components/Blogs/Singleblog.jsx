@@ -5,6 +5,7 @@ import blogApi from "../../Utils/Blogconfig";
 import { authContext } from "../../Context/Authcontext";
 import {Typography} from "@material-tailwind/react";
 import parse from "html-react-parser";
+import convertTime from "../Helpers/timestamp";
 
 const Singleblog = () => {
   const [singleBlogData, setSingleBlogData] = useState();
@@ -34,9 +35,16 @@ const Singleblog = () => {
     }
   }, [state?.user?._id, id]);
 
+  //* Parsing HTML string to HTML code.
   let descriptionToDisplay = "";
   if(singleBlogData){
     descriptionToDisplay = parse(singleBlogData?.description);
+  }
+
+  //* Calling convertTime function to convert createdAt time to date.
+  let date;
+  if(singleBlogData){
+    date = convertTime(singleBlogData?.createdAt);
   }
   return (
     <>
@@ -48,7 +56,7 @@ const Singleblog = () => {
               {authorData}
             </Typography>
             <Typography variant="h6" className="text-gray-500 font-normal">
-              Timestamp
+              {date}
             </Typography>
             <Typography variant="paragraph" className="mt-10">
               {descriptionToDisplay}

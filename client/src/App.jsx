@@ -4,6 +4,7 @@ import Createblog from "./Components/Blogs/Createblog";
 import Pagenotfound from "./Components/Errorpages/Pagenotfound";
 import Helpcenter from "./Components/Help/Helpcenter";
 import Singleblog from "./Components/Blogs/Singleblog";
+import Yourblog from "./Components/Blogs/Yourblog";
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route exact path="/create/blog" element={<Createblog />} />
         <Route exact path="/help" element={<Helpcenter />} />
         <Route exact path="/blog/:id" element={<Singleblog />} />
+        <Route exact path="/bloglist" element={<Yourblog />} />
       </Routes>
     </>
   );

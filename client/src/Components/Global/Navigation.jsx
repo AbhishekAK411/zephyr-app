@@ -4,16 +4,21 @@ import { useContext } from "react";
 import { authContext } from "../../Context/Authcontext";
 import { toast } from "react-hot-toast";
 import api from "../../Utils/Axiosconfig";
+import { useNavigate } from "react-router-dom";
 
 const Navigation = () => {
 
     const {state, logout} = useContext(authContext);
     const username = state?.user?.username;
     const userrole = state?.user?.role;
-
+    const router = useNavigate();
+    
     const handleLogout = () => {
         logout();
         toast.success("logged out successfully.");
+    }
+    const redirectToYourBlog = () => {
+        router("/bloglist");
     }
     const becomeAContentCreator = async() => {
         if(state?.user?._id){
@@ -85,7 +90,7 @@ const Navigation = () => {
                 </>)}
                 <motion.div variants={buttonVariants} initial="initial" animate="animate" transition={transition}>
                     <Tooltip content="Your Blogs" className="bg-gray-900 rounded-full border text-white ml-[-10px]" placement="left" animate={animate}>
-                        <IconButton className="rounded-full text-[#800000] text-base" variant="text">
+                        <IconButton onClick={redirectToYourBlog} className="rounded-full text-[#800000] text-base" variant="text">
                             <i className="fab fa-slack" aria-hidden="true"></i>
                         </IconButton>
                     </Tooltip>
