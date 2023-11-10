@@ -34,7 +34,7 @@ const Navbar = ({ onLoginToggle }) => {
                 <section className="w-[40%] h-[60%] border rounded-full backdrop-blur-lg shadow-xl flex items-center justify-evenly">
                     <Button size="sm" variant="text" className="h-[80%] rounded-full text-gray-500">Home</Button>
                     <Button size="sm" variant="text" className="h-[80%] rounded-full text-gray-500">Feed</Button>
-                    {userrole ? (<>
+                    {userrole === "Content Creator" ? (<>
                         <Button onClick={redirectToCreateBlog} size="sm" variant="text" className="h-[80%] rounded-full text-gray-500">Create</Button>
                     </>) : (<>
                         <Button size="sm" variant="text" className="h-[80%] rounded-full text-gray-500">Explore</Button>
