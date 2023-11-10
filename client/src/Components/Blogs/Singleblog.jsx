@@ -48,7 +48,7 @@ const Singleblog = () => {
   }
   return (
     <>
-      <div className="w-full h-screen border-black border flex items-center justify-center">
+      <div className="w-full h-screen flex items-center justify-center">
         <div className="w-[95%] h-screen flex items-center justify-center">
           <div className="pl-10 pt-10 w-[95%] h-[95%]">
             <Typography variant="h3">{singleBlogData?.title}</Typography>
