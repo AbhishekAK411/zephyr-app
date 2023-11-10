@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { authContext } from "../../Context/Authcontext";
 import toast from "react-hot-toast";
 import blogApi from "../../Utils/Blogconfig";
+import Datanotfound from "../Errorpages/Datanotfound";
+import Dedicatedblogcard from "../Card/Dedicatedblogcard";
 
 const Yourblog = () => {
     const [userBlogs, setUserBlogs] = useState();
@@ -30,9 +32,15 @@ const Yourblog = () => {
     console.log(userBlogs);
     return (
         <>
-            <main className="w-full min-h-screen border-black border flex items-center justify-center">
-                <div className="w-[95%] h-full border-black border">
-                    
+            <main className="w-full min-h-screen border-black border flex justify-center pt-10">
+                <div className="w-[95%] h-full flex flex-wrap gap-x-5">
+                    {userBlogs?.length ? (<>
+                        {userBlogs?.map((blog, index) => (
+                            <Dedicatedblogcard blog={blog} key={index} />
+                        ))}
+                    </>) : (<>
+                        <Datanotfound />
+                    </>)}
                 </div>
             </main>
         </>

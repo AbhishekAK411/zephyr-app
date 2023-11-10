@@ -1,9 +1,14 @@
 import {Card, CardHeader, CardBody, CardFooter, Typography, Avatar, Tooltip} from "@material-tailwind/react";
+import monthDay from "../Helpers/monthAndDay";
 
-const Dedicatedblogcard = () => {
+const Dedicatedblogcard = ({ blog }) => {
+    let date;
+    if(blog?.createdAt){
+        date = monthDay(blog?.createdAt);
+    }
     return (
         <>
-            <Card className="max-w-[24rem] overflow-hidden">
+            <Card className="max-w-[24rem] overflow-hidden shadow-stripe">
       <CardHeader
         floated={false}
         shadow={false}
@@ -17,11 +22,10 @@ const Dedicatedblogcard = () => {
       </CardHeader>
       <CardBody>
         <Typography variant="h4" color="blue-gray">
-          UI/UX Review Check
+          {blog.title}
         </Typography>
         <Typography variant="lead" color="gray" className="mt-3 font-normal">
-          Because it&apos;s about motivating the doers. Because I&apos;m here to
-          follow my dreams and inspire others.
+          {blog.shortDescription}
         </Typography>
       </CardBody>
       <CardFooter className="flex items-center justify-between">
@@ -45,7 +49,7 @@ const Dedicatedblogcard = () => {
             />
           </Tooltip>
         </div>
-        <Typography className="font-normal">January 10</Typography>
+        <Typography className="font-normal">{date}</Typography>
       </CardFooter>
     </Card>
         </>
