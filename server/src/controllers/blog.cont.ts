@@ -61,3 +61,21 @@ export const getSingleBlog = async(req: Request, res: Response) => {
         return res.status(500).json({status: 500, success: false, message: "Internal server error."});
     }
 }
+
+export const getUserBlogs = async(req: Request, res: Response) => {
+    try {
+        const {userId}: _TUserId = req.body;
+
+        const findExistingUser: _TExistUser =await User.findById(userId).exec();
+        if(!findExistingUser) return res.status(404).json({status: 404, success: false, message: "User not found."});
+
+        const allBlogs = await Blog.find({user: userId}).exec();
+        if(allBlogs.length === 0){
+            return res.status(200).json({status: 200, success: true, userBlogs: []});
+        }else{
+            return res.status(200).json({status: 200, success: true, userBlogs: allBlogs});
+        }
+    } catch (error) {
+        return res.status(500).json({status: 500, success: false, message: "Internal server error."});
+    }
+}
