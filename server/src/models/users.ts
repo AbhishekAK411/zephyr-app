@@ -45,6 +45,8 @@ const userSchema = new Schema({
         enum: Object.values(userRole),
         default: userRole.Reader
     }
+}, {
+    timestamps: true
 });
 
 export default mongoose.model<Iuser>("User", userSchema);
