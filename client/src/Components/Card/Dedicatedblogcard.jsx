@@ -13,7 +13,7 @@ import monthDay from "../Helpers/monthAndDay";
 import { useState } from "react";
 import Deletedialog from "../Dialog/Deletedialog";
 
-const Dedicatedblogcard = ({ blog }) => {
+const Dedicatedblogcard = ({ blog, getBlogs }) => {
   const [open, setIsOpen] = useState(false);
 
   const deleteBlog = () => {
@@ -110,7 +110,7 @@ const Dedicatedblogcard = ({ blog }) => {
           </div>
         </CardFooter>
       </Card>
-      {open && <Deletedialog id={blog?._id} openState={open} deleteBlogCallback={deleteBlog} />}
+      {open && <Deletedialog getBlogs={getBlogs} id={blog?._id} openState={open} deleteBlogCallback={deleteBlog} />}
     </>
   );
 };

@@ -2,7 +2,7 @@ import {Button, Dialog, DialogHeader, DialogBody, DialogFooter} from "@material-
 import toast from "react-hot-toast";
 import blogApi from "../../Utils/Blogconfig";
 
-const Deletedialog = ({ openState, deleteBlogCallback, id }) => {
+const Deletedialog = ({ openState, deleteBlogCallback, id, getBlogs }) => {
     
     //* Function to delete the particular blog using ID as params.
     const confirmDeletionBlog = async() => {
@@ -11,6 +11,7 @@ const Deletedialog = ({ openState, deleteBlogCallback, id }) => {
             const axiosResponse = response?.data;
             if(axiosResponse?.success){
                 deleteBlogCallback();
+                getBlogs();
                 toast.success(axiosResponse?.message);
             }
         } catch (error) {
