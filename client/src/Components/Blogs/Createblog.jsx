@@ -61,7 +61,7 @@ const Createblog = () => {
   console.log(blogData);
   return (
     <>
-      <motion.section variants={createblogvariants} initial="initial" animate="animate" transition={transitions} className="w-full min-h-screen border-black border flex justify-center">
+      <motion.section variants={createblogvariants} initial="initial" animate="animate" transition={transitions} className="w-full min-h-screen flex justify-center">
         <section className="w-[95%] py-5 flex flex-col gap-y-5">
           <Input onChange={handleChange} name="title" type="text" label="Title" variant="standard" />
           <Input onChange={handleChange} name="shortDescription" type="text" label="Short Description" variant="standard" />
