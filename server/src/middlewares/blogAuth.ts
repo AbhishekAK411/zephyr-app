@@ -77,3 +77,20 @@ export const checkGetUserBlogs = async(req: Request, res: Response, next: NextFu
         return res.status(500).json({status: 500, success: false, message: "Internal server error."});
     }
 }
+
+export const checkDeleteBlog = async(req: Request, res: Response, next: NextFunction) => {
+    try {
+        const id = req.params.id;
+        if(!id) return res.status(404).json({status: 404, success: false, message: "contact an administrator."});
+
+        const BlogExists = await Blog.findById(id).exec();
+
+        if(BlogExists){
+            next();
+        }else{
+            return res.status(404).json({status: 404, success: false, message: "Kindly refresh the lage and try again."});
+        }
+    } catch (error) {
+        return res.status(500).json({status: 500, success: false, message: "Internal server error."});
+    }
+}

@@ -11,11 +11,13 @@ import {
 } from "@material-tailwind/react";
 import monthDay from "../Helpers/monthAndDay";
 import { useState } from "react";
+import Deletedialog from "../Dialog/Deletedialog";
 
 const Dedicatedblogcard = ({ blog }) => {
-  const [showDialog, setShowDialog] = useState(false);
+  const [open, setIsOpen] = useState(false);
+
   const deleteBlog = () => {
-    setShowDialog((prevState) => !prevState);
+    setIsOpen((prevState) => !prevState);
   };
 
   let date;
@@ -108,6 +110,7 @@ const Dedicatedblogcard = ({ blog }) => {
           </div>
         </CardFooter>
       </Card>
+      {open && <Deletedialog id={blog?._id} openState={open} deleteBlogCallback={deleteBlog} />}
     </>
   );
 };
