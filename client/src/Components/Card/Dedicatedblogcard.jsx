@@ -26,6 +26,10 @@ const Dedicatedblogcard = ({ blog, getBlogs }) => {
     router(`/blog/${blogId}`);
   }
 
+  const redirectToUpdate = () => {
+    router(`/blog/update/${blogId}`);
+  }
+
   let date;
   if (blog?.createdAt) {
     date = monthDay(blog?.createdAt);
@@ -77,7 +81,7 @@ const Dedicatedblogcard = ({ blog, getBlogs }) => {
             <Typography className="font-normal">{date}</Typography>
           </div>
           <div className="pt-5 flex justify-between">
-            <IconButton className="rounded" color="green" size="sm">
+            <IconButton onClick={redirectToUpdate} className="rounded" color="green" size="sm">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18"
