@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { authContext } from "../../Context/Authcontext";
 import toast from "react-hot-toast";
 import blogApi from "../../Utils/Blogconfig";
@@ -9,7 +9,7 @@ const Yourblog = () => {
     const [userBlogs, setUserBlogs] = useState();
     const {state} = useContext(authContext);
 
-    const getUserBlogs = async() => {
+    const getUserBlogs = useCallback(async() => {
         try {
             const response = await blogApi.post("/getUserBlogs", {
                 userId: state?.user?._id,
@@ -22,13 +22,13 @@ const Yourblog = () => {
         } catch (error) {
             toast.error(error?.response?.data?.message);
         }
-    }
+    }, [state?.user?._id])
 
     useEffect(() => {
         if(state?.user?._id){
             getUserBlogs();
         }
-    }, [state?.user?._id]);
+    }, [state?.user?._id, getUserBlogs]);
 
     return (
         <>
