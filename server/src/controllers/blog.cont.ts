@@ -99,6 +99,16 @@ export const updateBlog = async(req: Request, res: Response) => {
     try {
         const {id} = req.params;
         const {title, shortDescription, description} = req.body;
+
+        const findExistingBlog: _TExistBlog = await Blog.findById(id).exec();
+        if(!findExistingBlog) return res.status(404).json({status: 404, success: false, message: "Blog not found."});
+
+        const updateBlog = await Blog.findByIdAndUpdate(id, {title, shortDescription, description}).exec();
+        if(updateBlog){
+            return res.status(200).json({status: 200, success: true, message: "Blog updated successfully."});
+        }else{
+            return res.status(400).json({status: 400, success: false, message: "Error updating blog."});
+        }
     } catch (error) {
         return res.status(500).json({status: 500, success: false, message: "Internal server error."});
     }

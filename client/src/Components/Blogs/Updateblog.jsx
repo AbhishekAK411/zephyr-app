@@ -94,14 +94,14 @@ const Updateblog = () => {
             onChange={handleChange}
             name="title"
             type="text"
-            label="Title"
+            label={`Title: ${getSingleBlog?.title}`}
             variant="standard"
           />
           <Input
             onChange={handleChange}
             name="shortDescription"
             type="text"
-            label="Short Description"
+            label={`Short Description: ${getSingleBlog?.shortDescription}`}
             variant="standard"
           />
           <div className="h-[600px] w-full">

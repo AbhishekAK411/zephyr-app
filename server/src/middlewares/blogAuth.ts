@@ -108,7 +108,9 @@ export const checkUpdateblog = async(req: Request, res: Response, next: NextFunc
         const findExistingBlog: _TExistBlog = await Blog.findById(id).exec();
         if(!findExistingBlog) return res.status(404).json({status: 404, success: false, message: "Blog not found."});
 
-        
+        if(findExistingBlog){
+            next();
+        }
 
     } catch (error) {
         return res.status(500).json({status: 500, success: false, message: "Internal server error."});
