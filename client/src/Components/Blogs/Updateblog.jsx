@@ -1,20 +1,43 @@
 import {motion} from "framer-motion";
-import {useState, useEffect} from "react";
+import {useState, useEffect, useCallback, useContext} from "react";
 import {toast} from "react-hot-toast";
 import { Input, Button, Typography } from "@material-tailwind/react";
 import { useQuill } from "react-quilljs";
 import 'quill/dist/quill.snow.css';
 import { useParams } from "react-router-dom";
+import blogApi from "../../Utils/Blogconfig";
+import { authContext } from "../../Context/Authcontext";
 
 const Updateblog = () => {
+    const [getSingleBlog, setGetSingleBlog] = useState();
+    const [updateBlog, setUpdateBlog] = useState({title: "", shortDescription: "", description: ""});
     const {id} = useParams();
+    const {state} = useContext(authContext);
     const {quill, quillRef} = useQuill();
 
-    useEffect(() => {
-        
-    }, []);
-    const handleChange = (e) => {
+    const getBlogData = useCallback(async() => {
+        try {
+            const response = await blogApi.post("/getSingle", {
+                userId: state?.user?._id,
+                blogId: id
+            });
+            const axiosResponse = response?.data;
+            if(axiosResponse?.success){
+                setGetSingleBlog(axiosResponse?.singleBlog);
+            }
+        } catch (error) {
+            toast.error(error?.response?.data?.message);
+        }
+    }, [id, state?.user?._id]);
 
+    useEffect(() => {
+        if(state?.user?._id){
+            getBlogData();
+        }
+    }, [getBlogData, state?.user?._id]);
+
+    const handleChange = (e) => {
+        
     }
 
     const handleUpdateBlogSubmit = () => {
