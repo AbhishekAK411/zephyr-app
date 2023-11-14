@@ -4,16 +4,17 @@ import {toast} from "react-hot-toast";
 import { Input, Button, Typography } from "@material-tailwind/react";
 import { useQuill } from "react-quilljs";
 import 'quill/dist/quill.snow.css';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import blogApi from "../../Utils/Blogconfig";
 import { authContext } from "../../Context/Authcontext";
 
 const Updateblog = () => {
     const [getSingleBlog, setGetSingleBlog] = useState();
-    const [updateBlog, setUpdateBlog] = useState({title: "", shortDescription: "", description: ""});
+    const [updateBlog, setUpdateBlog] = useState({title: getSingleBlog?.title, shortDescription: getSingleBlog?.shortDescription, description: getSingleBlog?.description});
     const {id} = useParams();
     const {state} = useContext(authContext);
     const {quill, quillRef} = useQuill();
+    const router = useNavigate();
 
     const getBlogData = useCallback(async() => {
         try {
@@ -36,12 +37,35 @@ const Updateblog = () => {
         }
     }, [getBlogData, state?.user?._id]);
 
+    useEffect(() => {
+        if(quill){
+          quill.on("text-change", () => {
+            console.log(quillRef.current.firstChild.innerHTML);
+            setUpdateBlog((prevData) => ({...prevData, description: quillRef.current.firstChild.innerHTML}));
+          })
+        }
+      }, [quill,quillRef]);
+
     const handleChange = (e) => {
-        
+        setUpdateBlog({...updateBlog, [e.target.name]: e.target.value});
     }
 
-    const handleUpdateBlogSubmit = () => {
-
+    const handleUpdateBlogSubmit = async() => {
+        try {
+            const response = await blogApi.put(`/update/${id}`, {
+                title: updateBlog?.title,
+                shortDescription: updateBlog?.shortDescription,
+                description: updateBlog?.shortDescription,
+            });
+            
+            const axiosResponse = response?.data;
+            if(axiosResponse?.success){
+                toast.success(axiosResponse?.message);
+                router("/bloglist");
+            }
+        } catch (error) {
+            toast.error(error?.response?.data?.message);
+        }
     }
     const updateBlogVariants = {
         initial: {

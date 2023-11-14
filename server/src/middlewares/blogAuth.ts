@@ -94,3 +94,23 @@ export const checkDeleteBlog = async(req: Request, res: Response, next: NextFunc
         return res.status(500).json({status: 500, success: false, message: "Internal server error."});
     }
 }
+
+export const checkUpdateblog = async(req: Request, res: Response, next: NextFunction) => {
+    try {
+        const {id} = req.params;
+        const {title,shortDescription,description} = req.body;
+
+        if(!id) return res.status(404).json({status: 404, success: false, message: "Kindly refresh the page and try again."});
+        if(!title) return res.status(404).json({status: 404, success: false, message: "Title is required."});
+        if(!shortDescription) return res.status(404).json({status: 404, success: false, message: "Short description is required."});
+        if(!description) return res.status(404).json({status: 404, success: false, message: "Description is required."});
+
+        const findExistingBlog: _TExistBlog = await Blog.findById(id).exec();
+        if(!findExistingBlog) return res.status(404).json({status: 404, success: false, message: "Blog not found."});
+
+        
+
+    } catch (error) {
+        return res.status(500).json({status: 500, success: false, message: "Internal server error."});
+    }
+}

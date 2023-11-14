@@ -94,3 +94,12 @@ export const deleteBlog = async(req: Request, res: Response) => {
         return res.status(500).json({status: 500, success: false, message: "Internal server error."});
     }
 }
+
+export const updateBlog = async(req: Request, res: Response) => {
+    try {
+        const {id} = req.params;
+        const {title, shortDescription, description} = req.body;
+    } catch (error) {
+        return res.status(500).json({status: 500, success: false, message: "Internal server error."});
+    }
+}
